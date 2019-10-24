@@ -31,7 +31,7 @@ sup {
 
 // Standardize:
 body {
-    color: $c-text-dark;
+    color: $c-text-light;
     font-family: 'Roboto', sans-serif;
     font-weight: $fw-normal;
     font-size: 1em;
@@ -378,7 +378,7 @@ table {
     width: 100%;
     min-height: $header-height;
     z-index: 20;
-    background-color: $c-background-slightly-dark;
+    background-color: $c-background-dark;
     color: $c-text-light;
 
     .patreon-bar-wrapper {
@@ -451,11 +451,12 @@ ul#navbar {
         margin: 0;
         text-align: center;
         color: $c-text-light;
-        border-left: 1px solid rgba(white, 0.2);
+        border-left: 1px solid rgba(white, 0.1);
         @include transition(0.2s);
 
         &:hover {
             background-color: $c-accent;
+            color: $c-text-bright;
             @include transition(0.15s);
         }
     }
@@ -765,7 +766,7 @@ ul#navbar {
 }
 .segment-b {
     @extend .segment;
-    background-color: $c-background-slightly-dark;
+    background-color: $c-background-dark;
 }
 .segment-inner {
     max-width: 1200px;
@@ -882,7 +883,7 @@ ul#navbar {
     padding-bottom: 1em;
     overflow: auto;
     color: $c-text-light;
-    background-color: $c-background-slightly-dark;
+    background-color: $c-background-dark;
 
     h3 {
         padding: 0.5em;
@@ -910,9 +911,14 @@ ul#navbar {
             @include transition(0.25s);
 
             &:hover {
-                color: white;
-                background: $c-accent-light;
+                color: $c-text-bright;
+                background: $c-accent;
                 @include transition(0.15s);
+
+                .num-in-cat {
+                    @include transition(0.15s);
+                    background: $c-accent-light;
+                }
             }
 
             .material-icons {
@@ -932,10 +938,12 @@ ul#navbar {
                 text-align: center;
                 font-size: 70%;
                 font-weight: $fw-bold;
+                border: 1px solid rgba($c-text-light, 0.1);
                 border-radius: 50%;
-                background-color: $c-text-light;
-                color: $c-accent;
+                background-color: $c-background-darkish;
+                color: $c-text-light;
                 opacity: 0.9;
+                @include transition(0.25s);
             }
         }
         li.tag {
