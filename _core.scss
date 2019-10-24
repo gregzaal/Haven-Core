@@ -134,6 +134,11 @@ table {
     }
 }
 
+
+// ============================================================================
+// General
+// ============================================================================
+
 .material-icons {
     vertical-align: middle;
 }
@@ -152,11 +157,6 @@ table {
 .red-text {
     color: $c-red;
 }
-
-
-// ============================================================================
-// General
-// ============================================================================
 
 .hide {
     opacity: 0;
@@ -369,7 +369,7 @@ table {
     width: 100%;
     min-height: $header-height;
     z-index: 20;
-    background-color: $c-accent;
+    background-color: $c-background-slightly-dark;
     color: $c-text-light;
 
     .patreon-bar-wrapper {
@@ -446,7 +446,7 @@ ul#navbar {
         @include transition(0.2s);
 
         &:hover {
-            background-color: rgba(white, 0.15);
+            background-color: $c-accent;
             @include transition(0.15s);
         }
     }
@@ -853,7 +853,7 @@ ul#navbar {
     padding-bottom: 1em;
     overflow: auto;
     color: $c-text-light;
-    background-color: $c-accent;
+    background-color: $c-background-slightly-dark;
 
     h3 {
         padding: 0.5em;

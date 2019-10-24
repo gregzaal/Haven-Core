@@ -1,12 +1,11 @@
-$c-background: rgb(240, 240, 240);
+$c-background: rgb(47, 47, 47);;
 $c-background-light: lighten($c-background, 8%);
 $c-background-slightly-dark: darken($c-background, 4%);
 $c-background-dark: darken($c-background, 10%);
 
 $c-text-dark: rgb(46, 46, 46);
-$c-text-lightish: rgb(204, 204, 204);
-$c-text-light: rgb(255, 255, 255);
-$c-text-light: rgb(255, 255, 255);
+$c-text-light: rgb(215, 215, 215);
+$c-text-bright: rgb(255, 255, 255);
 
 $c-accent-light: lighten($c-accent, 8%);
 $c-accent-lighter: lighten($c-accent, 16%);
