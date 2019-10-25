@@ -38,7 +38,7 @@ body {
     background-color: $c-background;
 }
 h1, h2, h3, h4, h5 {
-    color: $c-accent;
+    color: $c-text-bright;
     font-weight: $fw-normal;
 }
 h1 {
@@ -70,6 +70,10 @@ b {
 a {
     color: $c-accent;
     text-decoration: none;
+
+    &:hover {
+        color: $c-accent-light;
+    }
 }
 
 q {
@@ -187,7 +191,7 @@ table {
     padding: 0.75em 1em;
     font-size: $std-font-size;
     background-color: $c-accent;
-    color: $c-text-light;
+    color: $c-text-bright;
     border: 1px solid rgba($c-accent, 1);
     @include transition(0.2s);
 
@@ -205,6 +209,16 @@ table {
 
     &:hover {
         background-color: $c-accent-lighter;
+        color: white;
+    }
+}
+.button-dark {
+    background-color: $c-background;
+    border-color: rgba($c-text-light, 0.2);
+    @extend .button;
+
+    &:hover {
+        background-color: $c-accent;
         color: white;
     }
 }
@@ -237,7 +251,7 @@ table {
     &:hover {
         background-color: $c-accent;
         border-color: rgba($c-accent, 1);
-        color: $c-background;
+        color: white;
     }
 }
 
@@ -390,11 +404,13 @@ table {
         .patreon-bar-outer {
             height: 22px;
             border: 2px solid $c-text-light;
+            @include transition(0.2s);
 
             .patreon-bar-inner {
                 height: 18px;
                 min-width: 12px;
                 background-color: $c-text-light;
+                @include transition(0.2s);
 
                 .patreon-bar-text {
                     text-align: center;
@@ -406,10 +422,30 @@ table {
                         margin-left: -0.15em;
                         font-size: 0.85em;
                         font-weight: $fw-bold;
+                        color: $c-text-dark;
+                        @include transition(0.2s);
                     }
 
                     img {
                         height: 18px;
+                    }
+                }
+            }
+        }
+        &:hover {
+            .patreon-bar-outer {
+                border: 2px solid $c-accent;
+                @include transition(0.1s);
+
+                .patreon-bar-inner {
+                    background-color: $c-accent;
+                    @include transition(0.1s);
+
+                    .patreon-bar-text {
+                        .text {
+                            color: $c-text-bright;
+                            @include transition(0.1s);
+                        }
                     }
                 }
             }
@@ -422,9 +458,84 @@ table {
         }
     }
 }
-#header-logo {
+#header-logos {
     display: inline-block;
-    padding: calc(0.5em + 2px) 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 1em;
+
+    p {
+        display: inline-block;
+        margin-left: 0;
+        margin-right: 0;
+        font-family: Lato, sans-serif;
+        font-weight: 400;
+        font-size: 1.23em;
+        color: $c-text-bright;
+        overflow: hidden;
+        max-width: 0;
+        opacity: 0;
+        @include transition(0.25s);
+
+        b {
+            font-weight: 900;
+        }
+
+        i {
+            font-size: 80%;
+            height: 0;  // For some reason this is needed to prevent reflow?
+            vertical-align: top;
+            color: $c-text-light;
+        }
+    }
+
+    p.this-haven {
+        margin-right: 1em;
+        max-width: 170px;
+        opacity: 1;
+    }
+
+    img {
+        $padding: 0.4em;
+        padding: $padding 1em;
+        height: calc(54px - (#{$padding} * 2));
+        vertical-align: top;
+        @include transition(0.25s);
+    }
+
+    img.other-haven {
+        filter: saturate(0);
+    }
+    @media all and (max-width: 780px){
+        img.other-haven {
+            display: none;
+        }
+    }
+
+    &:hover {
+        p {
+            margin-right: 0;
+            max-width: 0;
+            opacity: 0;
+        }
+        img {
+            filter: saturate(0);
+        }
+    }
+
+    a:hover {
+        p {
+            margin-right: 1em;
+            max-width: 170px;
+            opacity: 1;
+            @include transition(0.15s);
+        }
+        img {
+            filter: saturate(1);
+            @include transition(0.15s);
+        }
+    }
 }
 #navbar-toggle {
     position: absolute;
@@ -485,7 +596,7 @@ ul#navbar {
 
 #footer {
     width: auto;
-    background-color: $c-gray-dark;
+    background-color: $c-background-dark;
     color: $c-text-light;
     text-align: center;
 
@@ -718,7 +829,7 @@ ul#navbar {
     &:hover {
         user-select: none;
         -moz-user-select: none;
-        @include scale(1.1);
+        color: $c-text-bright;
         @include text-shadow(1);
         @include transition(0.15s);
     }
@@ -742,8 +853,7 @@ ul#navbar {
     transform: translateY(calc(-50% - 2em));
 
     #banner-logo {
-        width: calc(100% - 3em);
-        max-width: 600px;
+        height: 12em;
         filter: drop-shadow( 0 0 4px rgba(0,0,0, 0.3) );
     }
 
@@ -913,11 +1023,14 @@ ul#navbar {
             &:hover {
                 color: $c-text-bright;
                 background: $c-accent;
+                @include text-shadow-fine();
                 @include transition(0.15s);
 
                 .num-in-cat {
                     @include transition(0.15s);
+                    color: $c-text-bright;
                     background: $c-accent-light;
+                    border-color: rgba($c-text-light, 0.4);
                 }
             }
 
@@ -961,7 +1074,16 @@ ul#navbar {
         }
 
         .current-cat {
-            background: $c-accent-light;
+            color: $c-text-bright;
+            background: $c-accent;
+            font-weight: $fw-bold;
+            @include text-shadow-fine();
+
+            .num-in-cat {
+                color: $c-text-bright;
+                background: $c-accent-light;
+                border-color: rgba($c-text-light, 0.4);
+            }
         }
     }
 }
@@ -1015,9 +1137,9 @@ ul#navbar {
             padding: 0.35em 0.5em;
             padding-right: 1em;
             margin-right: 0.5em;
-            color: $c-text-dark;
+            color: $c-text-light;
             cursor: pointer;
-            border: 1px solid rgba(black, 0.2);
+            border: 1px solid rgba($c-text-light, 0.2);
 
             &:last-child {
                 margin-bottom: 0;
@@ -1047,14 +1169,14 @@ ul#navbar {
             top: 100%;
             width: calc(100% - 2px);
             background-color: $c-background;
-            border: 1px solid rgba($c-text-dark, 0.5);
+            border: 1px solid rgba($c-text-light, 0.5);
             z-index: 2;
             opacity: 0;
             visibility: hidden;
             @include drop-shadow();
 
             a {
-                color: $c-text-dark;
+                color: $c-text-light;
                 text-align: right;
                 text-decoration: none;
             }
@@ -1065,9 +1187,9 @@ ul#navbar {
             @include transition(0.2s);
 
             &:hover {
-                color: $c-text-light;
+                color: $c-text-bright;
                 box-shadow: 2px 2px 5px rgba(0,0,0, 0.1);
-                background-color: $c-accent-light;
+                background-color: $c-accent;
                 border-top: 0;
                 @include transition(0.15s);
             }
@@ -1080,7 +1202,7 @@ ul#navbar {
 
             .material-icons {
                 padding-right: 0;
-                color: $c-text-dark;
+                color: $c-text-light;
             }
 
             .search-reset {
@@ -1109,7 +1231,7 @@ ul#navbar {
             margin: 0;
             padding: 0;
             border: 0;
-            color: $c-text-dark;
+            color: $c-text-light;
         }
         button.search:hover {
             cursor: pointer;
@@ -1183,6 +1305,7 @@ ul#navbar {
 
         a {
             position: relative;
+            color: $c-text-light;
 
             &:after {
                 position: absolute;
@@ -1190,12 +1313,12 @@ ul#navbar {
                 left: 0;
                 width: 100%;
                 content: "";
-                border-bottom: 1px solid rgba($c-accent, 0.2);
+                border-bottom: 1px solid rgba($c-text-light, 0.2);
             }
 
             &:hover {
                 &:after {
-                    border-color: rgba($c-accent, 1);
+                    border-color: rgba($c-text-light, 1);
                 }
             }
         }

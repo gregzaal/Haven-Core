@@ -9,6 +9,9 @@
 @mixin text-shadow($opacity:0.55) {
     text-shadow: 0 0 4px rgba(0,0,0, $opacity);
 }
+@mixin text-shadow-fine($opacity:0.15) {
+    text-shadow: 1px 1px 0 rgba(black, $opacity)
+}
 
 @mixin scale($s){
     transform:scale($s);
