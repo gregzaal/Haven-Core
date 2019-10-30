@@ -555,7 +555,12 @@ function most_popular_in_each_category($reuse_conn=NULL){
 
     $a = [];
     $items = get_from_db("popular", "all", "all", "all", $conn);
-    foreach (get_all_categories($conn) as $c){
+    if (array_key_exists('STANDARD_CATEGORIES', $GLOBALS)){
+        $cats = array_keys($GLOBALS['STANDARD_CATEGORIES']);
+    }else{
+        $cats = get_all_categories($conn);
+    }
+    foreach ($cats as $c){
         $found = false;
         foreach ($items as $h){
             $category_arr = explode(';', $h['categories']);
@@ -647,13 +652,20 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
     }
     echo "<div class='category-list-wrapper'>";
     echo "<ul id='category-list'>";
-    $categories = get_all_categories($conn);
+    if (array_key_exists('STANDARD_CATEGORIES', $GLOBALS)){
+        $categories = array_keys($GLOBALS['STANDARD_CATEGORIES']);
+    }else{
+        $categories = get_all_categories($conn);
+    }
     array_unshift($categories, "all");
     foreach ($categories as $c){
         if ($c){  // Ignore uncategorized
             $num_in_cat = num_items("all", $c, $conn);
             echo "<a href='/".$GLOBALS['CONTENT_TYPE']."/?c=".$c."&amp;o={$sort}'>";
-            echo "<li title=\"".nice_name($c)."\"";
+            echo "<li";
+            if (array_key_exists('STANDARD_CATEGORIES', $GLOBALS)){
+                echo " title=\"".$GLOBALS['STANDARD_CATEGORIES'][$c]."\"";
+            }
             if ($current != "all" && $c == $current){
                 echo " class='current-cat'";
             }
