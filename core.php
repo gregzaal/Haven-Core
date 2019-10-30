@@ -22,7 +22,7 @@ $PATRON_LIST = $patreon[0];
 $PATREON_GOALS = $patreon[2];
 $PATREON_CURRENT_GOAL = null;
 foreach ($PATREON_GOALS as $g){
-    if ($g['completed_percentage'] < 100){
+    if ($g['completed_percentage'] < 100 && strpos($g['description'], "[reached") == false){
         $PATREON_CURRENT_GOAL = $g;
         break;
     }
@@ -481,7 +481,6 @@ function track_search($search_term, $category="", $reuse_conn=NULL){
 }
 
 function get_similar($slug, $reuse_conn=NULL){
-
     if (is_null($reuse_conn)){
         $conn = db_conn_read_only();
     }else{
