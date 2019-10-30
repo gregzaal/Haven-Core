@@ -76,6 +76,10 @@ function str_lreplace($search, $replace, $subject) {
     return $subject;
 }
 
+function fmoney($i){
+    return number_format($i, 2, '.', ' ');
+}
+
 function random_hash($length=8){
     $chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
     $hash = "";
@@ -574,6 +578,32 @@ function most_popular_in_each_category($reuse_conn=NULL){
     }
 
     return $a;
+}
+
+function get_all_cats_or_tags($mode, $cat="all", $conn=NULL){
+    $db = get_from_db("popular", "all", $cat, "all", $conn, 0);
+    $all_flags = [];
+    foreach ($db as $item){
+        $flags = explode(";",  str_replace(',', ';', $item[$mode]));
+        foreach ($flags as $t){
+            $t = strtolower($t);
+            if (!in_array($t, $all_flags)){
+                array_push($all_flags, $t);
+            }
+        }
+    }
+    sort($all_flags);
+    return $all_flags;
+}
+
+function get_all_categories($conn=NULL){
+    // Convenience function
+    return get_all_cats_or_tags("categories", "all", $conn);
+}
+
+function get_all_tags($cat="all", $conn=NULL){
+    // Convenience function
+    return get_all_cats_or_tags("tags", $cat, $conn);
 }
 
 function get_gallery_renders($all=false, $reuse_conn=NULL){
