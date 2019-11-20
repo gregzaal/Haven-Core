@@ -11,7 +11,7 @@ $fw-extra-bold: 900;
 $header-height: 53px;  // Only use in window height calculations
 $sidebar-width: 210px;
 $std-font-size: 1.15em;
-$cat-ball-size: 180px;
+$cat-ball-size: 150px;
 
 
 // Reset:
@@ -39,7 +39,12 @@ body {
 }
 h1, h2, h3, h4, h5 {
     color: $c-text-bright;
-    font-weight: $fw-normal;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+
+    b {
+        font-weight: 900;
+    }
 }
 h1 {
     padding: 0.6em;
@@ -199,7 +204,7 @@ table {
         background-color: $c-accent-light;
         border-color: rgba($c-text-light, 0.3);
         @include drop-shadow();
-        @include transition(0.15s);
+        @include transition(0.1s);
     }
 }
 .button-light {
@@ -492,7 +497,7 @@ table {
 
     p.this-haven {
         margin-right: 1em;
-        max-width: 170px;
+        max-width: 161px;
         opacity: 1;
     }
 
@@ -527,7 +532,7 @@ table {
     a:hover {
         p {
             margin-right: 1em;
-            max-width: 170px;
+            max-width: 161px;
             opacity: 1;
             @include transition(0.15s);
         }
@@ -645,7 +650,7 @@ ul#navbar {
         .patron-rank-4 {
             font-weight: $fw-bold;
         }
-        .patron-rank-5 {
+        .patron-rank-5, .patron-rank-6 {
             font-weight: $fw-extra-bold;
             color: white;
             font-size: 115%;
@@ -867,6 +872,8 @@ ul#navbar {
         padding-top: 1em;
         color: white;
         font-size: 1.3em;
+        font-family: "Lato", sans-serif;
+        font-weight: 400;
         @include text-shadow();
     }
 }
@@ -896,13 +903,35 @@ ul#navbar {
     }
 }
 .segment-montage {
+    position: relative;
     text-align: center;
     background: url(/files/site_images/bottom_banner.jpg) no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
 
+    .segment-montage-hover {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: url(/files/site_images/bottom_banner_hover.jpg) no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+        opacity: 0;
+        @include transition(1s);
+    }
+
     .button{
+        position: relative;
         margin: 150px 1em;
+    }
+
+    &:hover {
+        .segment-montage-hover {
+            opacity: 1;
+            @include transition(0.4s);
+        }
     }
 }
 
@@ -998,6 +1027,8 @@ ul#navbar {
     overflow: auto;
     color: $c-text-light;
     background-color: $c-background-dark;
+    scrollbar-width: thin;
+    scrollbar-color: $c-background-light $c-background-dark;
 
     h3 {
         padding: 0.5em;
@@ -1526,6 +1557,7 @@ ul#navbar {
 
     .user-render {
         position: relative;
+        border-color: transparent;
 
         .user-render-info {
             position: absolute;
@@ -1533,6 +1565,7 @@ ul#navbar {
             left: 0;
             width: 100%;
             background: white;
+            color: $c-text-dark;
             opacity: 0;
             @include transition();
         }
@@ -1665,7 +1698,7 @@ ul#navbar {
     }
 }
 
-#gallery-form {
+#gallery-form, #ev-calc-form {
     border: 1px solid rgba($c-accent, 0.5);
     margin: 1em;
 
