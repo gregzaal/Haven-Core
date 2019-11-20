@@ -360,6 +360,37 @@ function insert_email($text="##email##"){
     echo '</script>';
 }
 
+function make_grid_link($sort="popular", $search="all", $category="all", $author="all"){
+    $default_sort = "popular";
+    $default_search = "all";
+    $default_category = "all";
+    $default_author = "all";
+
+    $url = "/".$GLOBALS['CONTENT_TYPE']."/";
+
+    $params = [];
+    if ($sort != $default_sort){
+        array_push($params, "o=".$sort);
+    }
+    if ($search != $default_search){
+        array_push($params, "s=".$search);
+    }
+    if ($category != $default_category){
+        array_push($params, "c=".$category);
+    }
+    if ($author != $default_author){
+        array_push($params, "a=".$author);
+    }
+
+    if (empty($params)){
+        return $url;
+    }
+
+    $url .= "?";
+    $url .= implode("&amp;", $params);
+    return $url;
+}
+
 
 // ============================================================================
 // Database functions
@@ -655,12 +686,12 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
         $categories = array_keys($GLOBALS['STANDARD_CATEGORIES']);
     }else{
         $categories = get_all_categories($conn);
+        array_unshift($categories, "all");
     }
-    array_unshift($categories, "all");
     foreach ($categories as $c){
         if ($c){  // Ignore uncategorized
             $num_in_cat = num_items("all", $c, $conn);
-            echo "<a href='/".$GLOBALS['CONTENT_TYPE']."/?c=".$c."&amp;o={$sort}'>";
+            echo "<a href=\"".make_grid_link($sort, "all", $c, "all")."\">";
             echo "<li";
             if (array_key_exists('STANDARD_CATEGORIES', $GLOBALS)){
                 echo " title=\"".$GLOBALS['STANDARD_CATEGORIES'][$c]."\"";
@@ -675,11 +706,11 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all"){
             echo "</li>";
             echo "</a>";
 
-            if ($c != 'all' && $c == $current){
+            if ($show_tags && $c != 'all' && $c == $current){
                 $tags_in_cat = get_all_tags($c, $conn);
                 $last_tag = end($tags_in_cat);
                 foreach ($tags_in_cat as $t){
-                    echo "<a href='/".$GLOBALS['CONTENT_TYPE']."/?c=".$c."&amp;s={$t}"."&amp;o={$sort}'>";
+                    echo "<a href=\"".make_grid_link($sort, $t, $c, "all")."\">";
                     echo "<li class='tag";
                     if ($t == $last_tag){
                         echo " last-tag";
