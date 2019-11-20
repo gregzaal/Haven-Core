@@ -703,6 +703,26 @@ function get_commercial_sponsors($reuse_conn=NULL){
     return $active_sponsors;
 }
 
+function get_author_info($name, $reuse_conn=NULL){
+    if (is_null($reuse_conn)){
+        $conn = db_conn_read_only();
+    }else{
+        $conn = $reuse_conn;
+    }
+    $row = 0; // Default incase of SQL error
+    $sql = "SELECT * FROM authors WHERE `name` LIKE \"{$name}\"";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+    }
+
+    if (is_null($reuse_conn)){
+        $conn->close();
+    }
+
+    return $row;
+}
+
 
 // ============================================================================
 // Item Grid
