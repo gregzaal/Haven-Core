@@ -268,7 +268,7 @@ function include_start_html($title, $slug="", $canonical="", $t1="") {
     $textures_one = "";
     ob_end_clean();
 
-    if ($title == "Render Gallery"){
+    if ($title == "Render Gallery" || $slug != ""){
         $html = str_replace('%GALLERYJS%', "<link rel=\"stylesheet\" href=\"/js/flexImages/jquery.flex-images.css\"><script src=\"/js/flexImages/jquery.flex-images.min.js\"></script>", $html);
     }else{
         $html = str_replace('%GALLERYJS%', "", $html);
