@@ -669,12 +669,46 @@ function get_gallery_renders($all=false, $reuse_conn=NULL){
     return $array;
 }
 
+function get_commercial_sponsors($reuse_conn=NULL){
+    if (is_null($reuse_conn)){
+        $conn = db_conn_read_only();
+    }else{
+        $conn = $reuse_conn;
+    }
+    $row = 0; // Default incase of SQL error
+    $sql = "SELECT * FROM commercial_sponsors";
+    $result = mysqli_query($conn, $sql);
+
+    $array = array();
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($array, $row);
+        }
+    }
+    if (is_null($reuse_conn)){
+        $conn->close();
+    }
+
+    $active_sponsors = array();
+    foreach ($GLOBALS['PATRON_LIST'] as $p){
+        if ($p[1] == 6){
+            foreach ($array as $r){
+                if ($p[0] == $r['name']){
+                    array_push($active_sponsors, $r);
+                }
+            }
+        }
+    }
+
+    return $active_sponsors;
+}
+
 
 // ============================================================================
 // Item Grid
 // ============================================================================
 
-function make_category_list($sort, $reuse_conn=NULL, $current="all"){
+function make_category_list($sort, $reuse_conn=NULL, $current="all", $show_tags=true){
     if (is_null($reuse_conn)){
         $conn = db_conn_read_only();
     }else{
@@ -764,7 +798,9 @@ function make_item_grid($sort="popular", $search="all", $category="all", $author
 
 function pledge_rank($pledge_amount){
     $pledge_rank = 1;
-    if ($pledge_amount >= 2000) {
+    if ($pledge_amount >= 5000) {
+        $pledge_rank = 6;
+    }else if ($pledge_amount >= 2000) {
         $pledge_rank = 5;
     }else if ($pledge_amount >= 1000){
         $pledge_rank = 4;
@@ -840,8 +876,8 @@ function get_patreon(){
             "Michael Szalapski",
         ];
         $patron_list = [];
-        for ($i=0; $i<150; $i++){
-            $pledge_rank_weights = [1,1,1,1, 2,2,2,2,2,2,2,2,2,2,2,2, 3,3,3, 4,4, 5];
+        for ($i=0; $i<350; $i++){
+            $pledge_rank_weights = [1,1,1,1, 2,2,2,2,2,2,2,2,2,2,2,2, 3,3,3, 4,4, 5, 6];
             $pledge_rank = $pledge_rank_weights[array_rand($pledge_rank_weights)];
             $patron_full_name = $example_names[array_rand($example_names)];
             if (array_key_exists($patron_full_name, $name_replacements)){
