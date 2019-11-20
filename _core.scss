@@ -1102,8 +1102,160 @@ ul#navbar {
 }
 
 #sidebar::-webkit-scrollbar-thumb {
-    background-color: $c-accent-lighter;
+    background-color: $c-background-light;
     border-radius: 12px;
+}
+
+
+// =============================================================================================
+//    d888b  d8888b. d888888b d8888b.      d8888b.  .d8b.  d8b   db d8b   db d88888b d8888b.
+//   88' Y8b 88  `8D   `88'   88  `8D      88  `8D d8' `8b 888o  88 888o  88 88'     88  `8D
+//   88      88oobY'    88    88   88      88oooY' 88ooo88 88V8o 88 88V8o 88 88ooooo 88oobY'
+//   88  ooo 88`8b      88    88   88      88~~~b. 88~~~88 88 V8o88 88 V8o88 88~~~~~ 88`8b
+//   88. ~8~ 88 `88.   .88.   88  .8D      88   8D 88   88 88  V888 88  V888 88.     88 `88.
+//    Y888P  88   YD Y888888P Y8888D'      Y8888P' YP   YP VP   V8P VP   V8P Y88888P 88   YD
+// =============================================================================================
+
+#grid-banner {
+    margin: -1em;
+    margin-bottom: 1em;
+    border-bottom: 5px solid $c-background-lightish;
+
+    .segment {
+        padding: 1.5em 1em 0;
+    }
+
+    .col-4 {
+        h2 {
+            padding: 0.5em 0.5em 0;
+        }
+
+        p {
+            font-size: 1em;
+            margin: 0.5em;
+        }
+    }
+
+    .category-segment {
+        position: relative;
+        overflow: hidden;
+        padding: 1em 2em;
+
+        .fade-gradient{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            pointer-events: none;
+            @include transition(0.5s);  // Used when adding/removing .hide class in js
+        }
+        .fade-gradient-left {
+            @extend .fade-gradient;
+            left: 0;
+            right: 90%;
+            background: linear-gradient(to left, transparent, rgba($c-background, 1));
+        }
+        .fade-gradient-right {
+            @extend .fade-gradient;
+            left:90%;
+            right: 0;
+            background: linear-gradient(to right, transparent, rgba($c-background, 1));
+        }
+
+        #scroll-cat {
+            position: absolute;
+            top: 0;
+            line-height: calc(#{$cat-ball-size} + 1em);
+            right: 0;
+            font-size: 3.5em;
+            cursor: pointer;
+            @include transition(0.2s);
+
+            &:hover {
+                color: $c-text-light;
+                user-select: none;
+                -moz-user-select: none;
+                @include scale(1.1);
+                @include text-shadow(1);
+                @include transition(0.15s);
+            }
+        }
+        #scroll-cat-right {
+            @extend #scroll-cat;
+        }
+        #scroll-cat-left {
+            @extend #scroll-cat;
+            right: auto;
+            left: 0;
+        }
+    }
+
+    .grid-item {
+        width: calc(25% - 1em - 2px);
+        text-align: left;
+    }
+
+    .button {
+        margin: 1em;
+    }
+
+    .grid-banner-icon {
+        width: 100px;
+    }
+}
+@media all and (max-width: 1000px){
+    // Tablets
+    #grid-banner .grid-item {
+        width: calc(50% - 1em - 2px);
+    }
+}
+
+.category-list-images {
+    position: relative;
+    left: 0;
+    white-space: nowrap;
+    text-align: left;
+
+    li {
+        position: relative;
+        display: inline-block;
+        margin: 0 0.5em;
+        width: $cat-ball-size;
+        height: $cat-ball-size;
+        color: white;
+        border-radius: 50%;
+        overflow: hidden;
+        @include transition(0.2s);
+
+        &:hover {
+            box-shadow: 0 0 25px 0 rgba(black, 0.4);
+            transform: scale(1.05);
+
+            .background-image {
+                opacity: 1;
+                transform: scale(1.0);
+            }
+        }
+
+        .background-image {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-size: cover !important;
+            opacity: 0.9;
+            transform: scale(1.1);
+            @include transition(0.2s);
+        }
+
+        p {
+            position: relative;
+            margin: 0;
+            line-height: $cat-ball-size;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: $fw-bold;
+            @include text-shadow();
+        }
+    }
 }
 
 
