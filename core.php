@@ -511,6 +511,28 @@ function track_search($search_term, $category="", $reuse_conn=NULL){
     }
 }
 
+function get_download_count($item_id, $reuse_conn=NULL){
+    if (is_null($reuse_conn)){
+        $conn = db_conn_read_only();
+    }else{
+        $conn = $reuse_conn;
+    }
+    $num = 0; // Default incase of SQL error
+    $sql = "SELECT COUNT(DISTINCT(ip)) as dl FROM `download_counting` ";
+    $sql .= "WHERE ".$GLOBALS['CONTENT_TYPE_SHORT']."_id =".$item_id;
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $num = $row['dl'];
+    }
+
+    if (is_null($reuse_conn)){
+        $conn->close();
+    }
+
+    return $num;
+}
+
 function get_similar($slug, $reuse_conn=NULL){
     if (is_null($reuse_conn)){
         $conn = db_conn_read_only();
