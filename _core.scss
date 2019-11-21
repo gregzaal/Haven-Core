@@ -77,7 +77,7 @@ a {
     text-decoration: none;
 
     &:hover {
-        color: $c-accent-light;
+        color: $c-accent-alt;
     }
 }
 
@@ -201,7 +201,7 @@ table {
     @include transition(0.2s);
 
     &:hover {
-        background-color: $c-accent-light;
+        background-color: $c-accent-alt;
         border-color: rgba($c-text-light, 0.3);
         @include drop-shadow();
         @include transition(0.1s);
