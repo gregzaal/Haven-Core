@@ -51,6 +51,12 @@ function to_slug($name){
     return $name;
 }
 
+function md_to_html($s){
+    require_once($_SERVER['DOCUMENT_ROOT'].'/core/parsedown/Parsedown.php');
+    $parsedown = new Parsedown();
+    return $parsedown->text($s);
+}
+
 function starts_with($haystack, $needle) {
     return substr($haystack, 0, strlen($needle)) === $needle;
 }
@@ -749,6 +755,23 @@ function get_author_info($name, $reuse_conn=NULL){
     }
 
     return $row;
+}
+
+function make_faq(){
+    $conn = db_conn_read_only();
+    $sql = "SELECT * FROM faq ORDER BY id ASC";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $anchors = explode('+', $row['anchor']);
+            foreach ($anchors as $anchor){
+                echo "<div class=\"anchor-wrapper\"><a class=\"anchor\" name=\"{$anchor}\"></a></div>";
+            }
+            echo "<a href=\"#{$anchors[0]}\"><h2>{$row['title']}</h2></a>";
+            echo md_to_html($row['content']);
+        }
+    }
 }
 
 
