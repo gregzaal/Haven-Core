@@ -356,19 +356,14 @@ function include_disqus($id) {
 }
 
 function insert_email($text="##email##"){
-    echo '<script type="text/javascript">';
-    echo 'var s3 = "'.$GLOBALS['SITE_DOMAIN'].'";';
-    echo 'var s1 = "info";';
-    echo 'var s2 = "@";';
-    echo 'var s4 = s1 + s2 + s3;';
-    echo 'document.write("<a href=" + "mail" + "to:" + s1 + s2 + s3 + " target=\"_blank\">';
+    $email = "info@".$GLOBALS['SITE_DOMAIN'];
+    echo '<a href="mailto:'.$email.'" target="_blank">';
     if ($text == "##email##"){
-        echo '" + s4 + "';
+        echo $email;
     }else{
         echo $text;
     }
-    echo '</a>");';
-    echo '</script>';
+    echo "</a>";
 }
 
 function make_grid_link($sort="popular", $search="all", $category="all", $author="all"){
