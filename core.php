@@ -745,25 +745,16 @@ function get_commercial_sponsors($reuse_conn=NULL){
     $array = array();
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            array_push($array, $row);
+            if ($row['active']){
+                array_push($array, $row);
+            }
         }
     }
     if (is_null($reuse_conn)){
         $conn->close();
     }
 
-    $active_sponsors = array();
-    foreach ($GLOBALS['PATRON_LIST'] as $p){
-        if ($p[1] == 6){
-            foreach ($array as $r){
-                if ($p[0] == $r['name']){
-                    array_push($active_sponsors, $r);
-                }
-            }
-        }
-    }
-
-    return $active_sponsors;
+    return $array;
 }
 
 function get_author_info($name, $reuse_conn=NULL){
