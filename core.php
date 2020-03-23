@@ -790,12 +790,14 @@ function make_faq(){
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
+            $title = htmlspecialchars($row['title']);
+            $content = htmlspecialchars($row['content']);
             $anchors = explode('+', $row['anchor']);
             foreach ($anchors as $anchor){
                 echo "<div class=\"anchor-wrapper\"><a class=\"anchor\" name=\"{$anchor}\"></a></div>";
             }
-            echo "<a href=\"#{$anchors[0]}\"><h2>{$row['title']}</h2></a>";
-            echo md_to_html($row['content']);
+            echo "<a href=\"#{$anchors[0]}\"><h2>{$title}</h2></a>";
+            echo md_to_html($content);
         }
     }
 }
