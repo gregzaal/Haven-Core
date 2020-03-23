@@ -1284,7 +1284,8 @@ ul#navbar {
             text-align: center;
             font-size: 1.4em;
             font-weight: $fw-bold;
-            @include text-shadow();
+            @include text-shadow(1);
+            @include transition(0.2s);
         }
     }
 }
@@ -1452,7 +1453,7 @@ ul#navbar {
         background-color: $c-green;
         @include transition(0.2s);
     }
-    .new-triangle-shadow {  // TODO legacy remove
+    .new-triangle-shadow {
         display: none;
     }
 

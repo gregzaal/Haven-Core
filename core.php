@@ -122,6 +122,12 @@ function map_range($value, $fromLow, $fromHigh, $toLow, $toHigh) {
     return $tmpValue + $toLow;
 }
 
+function human_filesize($size) {
+    // From https://gist.github.com/liunian/9338301#gistcomment-1970620
+    for($i = 0; ($size / 1024) > 0.9; $i++, $size /= 1024) {}
+    return round($size, [0,0,1,2,2,3,3,4,4][$i]).' '.['B','kB','MB','GB','TB','PB','EB','ZB','YB'][$i];
+}
+
 function time_ago($strtime) {
     // Source: http://goo.gl/LQJWnW
 
