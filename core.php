@@ -82,6 +82,10 @@ function str_lreplace($search, $replace, $subject) {
     return $subject;
 }
 
+function filepath_to_url($fp){
+    return str_replace($GLOBALS['SYSTEM_ROOT'], "/", $fp);
+}
+
 function fmoney($i){
     return number_format($i, 2, '.', ' ');
 }
@@ -256,6 +260,14 @@ function qmkdir($d) {
     }
 }
 
+function is_image_file($fp){
+    if(@is_array(getimagesize($fp))){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function clear_cache(){
     $cache_dir = $_SERVER['DOCUMENT_ROOT']."/php/cache/";
     $r = array_map('unlink', glob("$cache_dir*.html"));
@@ -401,6 +413,23 @@ function make_grid_link($sort="popular", $search="all", $category="all", $author
     $url .= "?";
     $url .= implode("&amp;", $params);
     return $url;
+}
+
+function get_thumbnail($orig_fp, $size, $quality=55){
+    $hash = md5($orig_fp);
+    $icon_path = join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$GLOBALS['CONTENT_TYPE_SHORT']."_images/thumbnails", "{$hash}_{$size}_{$quality}.webp");
+    if (!file_exists($icon_path)){
+        $img = new imagick($orig_fp);
+        $img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
+        $img->setImageFormat('webp');
+        $img->setImageCompressionQuality($quality);
+        $img->writeImage($icon_path);
+    }
+    return $icon_path;
+}
+
+function get_slug_thumbnail($slug, $size, $quality=55){
+    return get_thumbnail(join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$GLOBALS['CONTENT_TYPE_SHORT']."_images/renders", $slug.'.png'), $size, $quality);
 }
 
 
