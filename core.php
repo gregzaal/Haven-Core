@@ -83,7 +83,8 @@ function str_lreplace($search, $replace, $subject) {
 }
 
 function filepath_to_url($fp){
-    return str_replace($GLOBALS['SYSTEM_ROOT'], "/", $fp);
+    $fp = str_replace($GLOBALS['SYSTEM_ROOT'], "/", $fp);
+    return str_replace("//", "/", $fp);
 }
 
 function fmoney($i){
