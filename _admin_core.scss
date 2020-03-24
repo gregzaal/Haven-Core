@@ -191,6 +191,15 @@ form {
     input[type=checkbox] {
         margin-right: 0.5em;
     }
+    input[type=date] {
+        width: 150px;
+        padding: 0.5em;
+        margin: 0.2em 0.15em;
+        vertical-align: middle;
+        font-family: 'PT Mono', monospace;
+        background-color: $c-background-lightish;
+        color: $c-text-light;
+    }
     input#form-name, input#form-slug, input#form-problem, input#form-reddit {
         width: 50%;
     }
@@ -208,6 +217,10 @@ form {
     }
     input#form-twitface {
         width: calc(100% - 12em - 3em);
+    }
+
+    input:disabled {
+        opacity: 0.3;
     }
 
     label.button {
