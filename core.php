@@ -423,7 +423,9 @@ function make_grid_link($sort="popular", $search="all", $category="all", $author
 
 function get_thumbnail($orig_fp, $size, $quality=55){
     $hash = md5($orig_fp);
-    $icon_path = join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$GLOBALS['CONTENT_TYPE_SHORT']."_images/thumbnails", "{$hash}_{$size}_{$quality}.webp");
+    $thumb_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$GLOBALS['CONTENT_TYPE_SHORT']."_images/thumbnails");
+    qmkdir($thumb_dir);
+    $icon_path = join_paths($thumb_dir, "{$hash}_{$size}_{$quality}.webp");
     if (!file_exists($icon_path)){
         $img = new imagick($orig_fp);
         $img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
