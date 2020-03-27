@@ -303,6 +303,23 @@ table {
     }
 }
 
+.warning-block {
+    background-color: rgba(255, 76, 76, 0.15);
+    border: 1px solid rgba(255, 128, 128, 0.8);
+    text-align: center;
+    font-size: 0.7em;
+
+    p {
+        margin: 0;
+        padding: 0.8em;
+    }
+
+    b {
+        color: white;
+        font-weight: $fw-extra-bold;
+    }
+}
+
 .no-margin {
     margin: 0 !important;
 }
