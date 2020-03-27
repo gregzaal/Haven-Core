@@ -87,6 +87,16 @@ function filepath_to_url($fp){
     return str_replace("//", "/", $fp);
 }
 
+function url_to_filepath($url){
+    $url = str_replace($GLOBALS['SITE_URL'], "", $url);
+    $url = $GLOBALS['SYSTEM_ROOT'].$url;
+    return str_replace("//", "/", $url);
+}
+
+function content_hashed_url($url){
+    echo $url."?v=".substr(hash_file("md5", url_to_filepath($url)), 0, 6);
+}
+
 function fmoney($i){
     return number_format($i, 2, '.', ' ');
 }
