@@ -1296,13 +1296,23 @@ ul#navbar {
 
         p {
             position: relative;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin: 0;
-            line-height: $cat-ball-size;
             text-align: center;
+            line-height: 1em;
             font-size: 1.4em;
             font-weight: $fw-bold;
+            white-space: initial;
             @include text-shadow(1);
             @include transition(0.2s);
+
+            span {
+                flex: 0 0 150px;
+            }
         }
     }
 }
