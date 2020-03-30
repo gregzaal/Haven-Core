@@ -319,6 +319,17 @@ table {
         font-weight: $fw-extra-bold;
     }
 }
+.info-block {
+    @extend .warning-block;
+    background-color: rgba(150, 150, 150, 0.05);
+    border: 1px solid rgba(150, 150, 150, 0.3);
+    margin: 0.8em;
+    font-size: 0.75em;
+
+    p {
+        padding: 0.5em;
+    }
+}
 
 .no-margin {
     margin: 0 !important;
