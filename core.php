@@ -413,14 +413,14 @@ function make_grid_link($sort="popular", $search="all", $category="all", $author
     if ($sort != $default_sort){
         array_push($params, "o=".$sort);
     }
-    if ($search != $default_search){
-        array_push($params, "s=".$search);
-    }
     if ($category != $default_category){
         array_push($params, "c=".$category);
     }
     if ($author != $default_author){
         array_push($params, "a=".$author);
+    }
+    if ($search != $default_search){
+        array_push($params, "s=".$search);
     }
 
     if (empty($params)){
