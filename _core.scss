@@ -404,6 +404,44 @@ table {
     border-radius: 50%;
     @include drop_shadow();
 }
+.me-sml {
+    width: 50px;
+    margin: 0 0.5em;
+    border-radius: 50%;
+    vertical-align: middle;
+    @include drop_shadow();
+}
+.me-med {
+    @extend .me-sml;
+    width: 150px;
+}
+
+.author-list {
+    h1 {
+        display: inline;
+    }
+
+    ul {
+        list-style: none;
+        display: inline;
+
+        li {
+            display: inline-block;
+            vertical-align: middle;
+
+            p {
+                font-size: 1em;
+                text-align: center;
+                margin: 0.5em 0;
+
+                i {
+                    font-size: 32px;
+                    padding: 0.1em;
+                }
+            }
+        }
+    }
+}
 
 #btc-address-wrapper {
     display: none;
