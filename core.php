@@ -853,9 +853,26 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all", $show_tags=
             echo "</a>";
 
             if ($show_tags && $c != 'all' && $c == $current){
-                $tags_in_cat = get_all_tags($c, $conn);
-                $last_tag = end($tags_in_cat);
-                foreach ($tags_in_cat as $t){
+                $db = get_from_db("popular", "all", $c, "all", $conn, 0);
+                $tags_in_cat = [];
+                foreach ($db as $item){
+                    $flags = explode(";",  str_replace(',', ';', $item["tags"]));
+                    foreach ($flags as $t){
+                        $t = strtolower($t);
+                        if (in_array($t, array_keys($tags_in_cat))){
+                            $tags_in_cat[$t] = $tags_in_cat[$t] + 1;
+                        }else{
+                            $tags_in_cat[$t] = 1;
+                        }
+                    }
+                }
+                arsort($tags_in_cat);  // Sort by number of items with tag
+                $keys = array_keys($tags_in_cat);
+                $keys = array_slice($keys, 0, 15);  // Remove all but top 15 tags
+                sort($keys);  // Sort alphabetically
+
+                $last_tag = end($keys);
+                foreach ($keys as $t){
                     echo "<a href=\"".make_grid_link($sort, $t, $c, "all")."\">";
                     echo "<li class='tag";
                     if ($t == $last_tag){
@@ -864,6 +881,7 @@ function make_category_list($sort, $reuse_conn=NULL, $current="all", $show_tags=
                     echo "'>";
                     echo "<i class=\"material-icons\">keyboard_arrow_right</i>";
                     echo nice_name($t);
+                    echo "<div class='num-in-cat'>".$tags_in_cat[$t]."</div>";
                     echo "</li>";
                     echo "</a>";
                 }
