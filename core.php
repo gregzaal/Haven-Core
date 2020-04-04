@@ -803,6 +803,7 @@ function make_faq(){
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
+            echo "<hr>";
             $title = htmlspecialchars($row['title']);
             $content = htmlspecialchars($row['content']);
             $anchors = explode('+', $row['anchor']);
