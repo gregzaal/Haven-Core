@@ -1095,6 +1095,7 @@ ul#navbar {
     width: $sidebar-width;
     padding-bottom: 1em;
     overflow: auto;
+    overflow-x: hidden;
     color: $c-text-light;
     background-color: $c-background-dark;
     scrollbar-width: thin;
