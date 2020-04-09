@@ -1098,8 +1098,7 @@ ul#navbar {
     overflow-x: hidden;
     color: $c-text-light;
     background-color: $c-background-dark;
-    scrollbar-width: thin;
-    scrollbar-color: $c-background-light $c-background-dark;
+    @include dark_scrollbar;
 
     h3 {
         padding: 0.5em;
@@ -1198,20 +1197,6 @@ ul#navbar {
             }
         }
     }
-}
-
-#sidebar::-webkit-scrollbar {
-    width: 12px;
-}
-
-#sidebar::-webkit-scrollbar-track {
-    background-color: transparent;
-    margin: 5px;
-}
-
-#sidebar::-webkit-scrollbar-thumb {
-    background-color: $c-background-light;
-    border-radius: 12px;
 }
 
 
