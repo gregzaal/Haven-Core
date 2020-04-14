@@ -781,6 +781,29 @@ function get_commercial_sponsors($reuse_conn=NULL){
     return $array;
 }
 
+function get_sponsors($slug, $reuse_conn=NULL){
+    if (is_null($reuse_conn)){
+        $conn = db_conn_read_only();
+    }else{
+        $conn = $reuse_conn;
+    }
+    $row = 0; // Default incase of SQL error
+    $sql = "SELECT * FROM sponsors WHERE `".$GLOBALS['CONTENT_TYPE_SHORT']."`='".$slug."' ORDER BY datetime ASC";
+    $result = mysqli_query($conn, $sql);
+
+    $array = array();
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            array_push($array, $row);
+        }
+    }
+    if (is_null($reuse_conn)){
+        $conn->close();
+    }
+
+    return $array;
+}
+
 function get_author_info($name, $reuse_conn=NULL){
     if (is_null($reuse_conn)){
         $conn = db_conn_read_only();
