@@ -433,14 +433,19 @@ function make_grid_link($sort="popular", $search="all", $category="all", $author
 }
 
 function get_thumbnail($orig_fp, $size, $quality=55){
-    $hash = md5($orig_fp);
+    $hash = md5($orig_fp.filesize($orig_fp));
     $thumb_dir = join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$GLOBALS['CONTENT_TYPE_SHORT']."_images/thumbnails");
     qmkdir($thumb_dir);
-    $icon_path = join_paths($thumb_dir, "{$hash}_{$size}_{$quality}.webp");
+    $icon_path = join_paths($thumb_dir, "{$hash}_{$size}_{$quality}.jpg");
     if (!file_exists($icon_path)){
-        $img = new imagick($orig_fp);
-        $img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
-        $img->setImageFormat('webp');
+        $bg_color = "rgb(45, 45, 45)";
+        $tmp_img = new imagick($orig_fp);
+        $img = new imagick();
+        $img->newImage($size, $size, $bg_color);
+        $tmp_img->resizeImage($size, $size, imagick::FILTER_BOX, 1, true);
+        $img->compositeimage($tmp_img, Imagick::COMPOSITE_OVER, 0, 0);
+        $img->setImageFormat('jpg');
+        $img->setImageCompression(Imagick::COMPRESSION_JPEG);
         $img->setImageCompressionQuality($quality);
         $img->writeImage($icon_path);
     }
