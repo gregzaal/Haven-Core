@@ -331,6 +331,34 @@ table {
     }
 }
 
+.tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: calc(100% + 3px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: $fw-normal;
+    text-transform: initial;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 0.4em 0.5em;
+    white-space: nowrap;
+    background-color: $c-background-light;
+    box-shadow: 0 0 0 1px rgba(white, 0.15);
+    @include transition();
+}
+.tooltip::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: $c-background-light transparent transparent transparent;
+  }
+
 .no-margin {
     margin: 0 !important;
 }
