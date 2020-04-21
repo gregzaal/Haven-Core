@@ -453,7 +453,12 @@ function get_thumbnail($orig_fp, $size, $quality=55){
 }
 
 function get_slug_thumbnail($slug, $size, $quality=55){
-    return get_thumbnail(join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$GLOBALS['CONTENT_TYPE_SHORT']."_images/renders", $slug.'.png'), $size, $quality);
+    $t = $GLOBALS['CONTENT_TYPE_SHORT'];
+    $renders_dir = [
+        "mod" => "renders",
+        "tex" => "spheres",
+    ];
+    return get_thumbnail(join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$t."_images",$renders_dir[$t], $slug.'.png'), $size, $quality);
 }
 
 
