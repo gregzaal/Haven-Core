@@ -258,6 +258,7 @@ function join_paths() {
 function listdir($d, $mode="ALL"){
     // List contents of folder, without hidden files
     $sd = scandir($d);
+    natcasesort($sd);
     $files = [];
     foreach ($sd as $f){
         if (!starts_with($f, '.')){
