@@ -259,6 +259,11 @@ table {
         color: white;
     }
 }
+.button-inverse-small {
+    @extend .button-inverse;
+    margin: 0.3em;
+    padding: 0.3em 0.5em;
+}
 
 .col-4 {
 
