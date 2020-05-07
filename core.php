@@ -684,9 +684,10 @@ function most_popular_in_each_category($reuse_conn=NULL){
         $cats = get_all_categories($conn);
     }
     foreach ($cats as $c){
+        $c = strtolower($c);
         $found = false;
         foreach ($items as $h){
-            $category_arr = explode(';', $h['categories']);
+            $category_arr = explode(';', strtolower($h['categories']));
             if (in_array($c, $category_arr) or $c == "all"){
                 $last_of_cat = $h;  // In case no unused match is found
                 if (!in_array($h['slug'], array_values($a))){
