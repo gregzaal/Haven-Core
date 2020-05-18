@@ -227,7 +227,6 @@ function send_email($to_email, $subject, $message){
 
     try {
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER; // TEMP
         $mail->isSMTP();
         $mail->Host       = $GLOBALS['EMAIL_HOST'];
         $mail->SMTPAuth   = true;
@@ -254,9 +253,8 @@ function send_email($to_email, $subject, $message){
         $mail->Body = $message;
 
         $mail->send();
-        echo 'Message has been sent';
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
 
@@ -1134,8 +1132,6 @@ function get_patreon(){
 
     // If the token doesn't work, get a newer one
     if ($campaign_response['errors']) {
-        echo "Got an error\n";
-        echo "Refreshing tokens\n";
         // Make an OAuth client
         $client_id = $GLOBALS['CLIENT_ID'];
         $client_secret = $GLOBALS['CLIENT_SECRET'];
@@ -1148,7 +1144,6 @@ function get_patreon(){
             $fp = fopen($patreon_tokens_path, 'w');
             fwrite($fp, json_encode($tokens));
             fclose($fp);
-            echo "Got a new access_token!";
         } else {
             echo "Can't fetch new tokens. Please debug, or write in to Patreon support.\n";
             print_r($tokens);
