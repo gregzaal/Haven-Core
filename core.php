@@ -13,9 +13,12 @@ if ($WORKING_LOCALLY){
     $SYSTEM_ROOT = $GLOBALS['LOCAL_WORKING_FOLDER'];
 }
 
-require_once($_SERVER['DOCUMENT_ROOT'].'/vendor/patreon/patreon/src/patreon.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php');
 use Patreon\API;
 use Patreon\OAuth;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 $patreon = get_patreon();
 $PATRON_LIST = $patreon[0];
@@ -219,20 +222,46 @@ function resize_image($old_fp, $new_fp, $format, $size_x, $size_y, $quality=85){
     $img->writeImage($new_fp);
 }
 
-function clean_email_string($string) {
-    $bad = array("content-type","bcc:","to:","cc:","<script>");
-    return str_replace($bad,"",$string);
+function send_email($to_email, $subject, $message){
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER; // TEMP
+        $mail->isSMTP();
+        $mail->Host       = $GLOBALS['EMAIL_HOST'];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $GLOBALS['EMAIL_USER'];
+        $mail->Password   = $GLOBALS['EMAIL_PASS'];
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
+        //Recipients
+        $mail->setFrom($GLOBALS['EMAIL_FROM'], $GLOBALS['EMAIL_FROM_NAME']);
+        $mail->addAddress($to_email);
+        $mail->addReplyTo($GLOBALS['EMAIL_FROM'], $GLOBALS['EMAIL_FROM_NAME']);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $message;
+
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }
 
 function debug_email($subject, $text){
-    $email_to = $GLOBALS['ADMIN_EMAIL'];
-    $email_from = "info@".$GLOBALS['SITE_DOMAIN'];
-    $headers = 'From: '.$email_from."\r\n".
-    'Reply-To: '.$email_from."\r\n" .
-    'MIME-Version: 1.0' . "\r\n" .
-    'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
-    @mail($email_to, $subject, clean_email_string($text), $headers);
+    send_email($GLOBALS['ADMIN_EMAIL'], $subject, $text);
 }
 
 function debug_console($str){
@@ -1113,7 +1142,7 @@ function get_patreon(){
         $oauth_client = new Patreon\OAuth($client_id, $client_secret);
         // Get a fresher access token
         $tokens = $oauth_client->refresh_token($refresh_token, null);
-        debug_email("Patreon Tokens", json_encode($tokens, JSON_PRETTY_PRINT));
+        // debug_email("Patreon Tokens", json_encode($tokens, JSON_PRETTY_PRINT));
         if ($tokens['access_token']) {
             $access_token = $tokens['access_token'];
             $fp = fopen($patreon_tokens_path, 'w');
