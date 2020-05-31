@@ -430,6 +430,11 @@ table {
     }
 }
 
+#stats-page {
+    @extend #page-wrapper;
+    max-width: revert;
+}
+
 .me {
     float: left;
     margin: 1em;
