@@ -503,6 +503,7 @@ function db_conn_read_only(){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    mysqli_set_charset($conn, 'utf8');
     return $conn;
 }
 
@@ -515,6 +516,7 @@ function db_conn_read_write(){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    mysqli_set_charset($conn, 'utf8');
     return $conn;
 }
 
