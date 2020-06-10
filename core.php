@@ -979,8 +979,15 @@ function make_item_grid($sort="popular", $search="all", $category="all", $author
             $html .= " results";
             $html .= "</h2>";
         }
+        $n = -10;
+        $ad_count = 0;
         foreach ($items as $i){
+            $n++;
             $html .= make_grid_item($i, $category);
+            if ($n % 19 == 0 && $ad_count < 4 && function_exists("make_grid_adunit")){
+                $html .= make_grid_adunit();
+                $ad_count++;
+            }
         }
     }
     return $html;

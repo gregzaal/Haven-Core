@@ -37,7 +37,7 @@ var click_functions = function(){
                 sidebar.css("display", "none");
             });
         }else{
-            sidebar.css("display", "block");
+            sidebar.css("display", "flex");
             sidebar.animate({'left': "0"}, 200);
         }
     });

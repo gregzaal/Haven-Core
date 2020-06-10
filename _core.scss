@@ -486,6 +486,14 @@ table {
     padding-left: 1em;
 }
 
+.adsense-unit {
+    text-align: center;
+}
+
+#ads-sidebar {
+    max-height: 200px;
+}
+
 
 // =============================================================================================
 //   db   db d88888b  .d8b.  d8888b. d88888b d8888b.
@@ -1127,20 +1135,26 @@ ul#navbar {
     }
 }
 #sidebar {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: $header-height;
     bottom: 0;
+    overflow: hidden;
     width: $sidebar-width;
-    padding-bottom: 1em;
-    overflow: auto;
-    overflow-x: hidden;
     color: $c-text-light;
     background-color: $c-background-dark;
-    @include dark_scrollbar;
 
     h3 {
         padding: 0.5em;
         color: $c-text-light;
+    }
+
+    .sidebar-inner {
+        overflow: auto;
+        overflow-x: hidden;
+        flex-grow: 100;
+        @include dark_scrollbar;
     }
 
     .category-list-wrapper {
@@ -1154,6 +1168,7 @@ ul#navbar {
             margin: 0;
             line-height: 1em;
             font-size: 1em;
+            padding-bottom: 1em;
         }
 
         li {
@@ -1739,6 +1754,12 @@ ul#navbar {
             text-align: center;
             font-weight: $fw-bold;
         }
+    }
+
+    .adsense-unit {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
     }
 }
 
