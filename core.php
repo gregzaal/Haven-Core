@@ -489,6 +489,25 @@ function get_slug_thumbnail($slug, $size, $quality=55){
     return get_thumbnail(join_paths($GLOBALS['SYSTEM_ROOT'], "files/".$t."_images",$renders_dir[$t], $slug.'.png'), $size, $quality);
 }
 
+function insert_ad($name){
+    $fp = $_SERVER['DOCUMENT_ROOT']."/php/html/ads/".$name.".php";
+    if (file_exists($fp)){
+        include($fp);
+    }else{
+        debug_console("No ad found with name: ".$name);
+    }
+}
+
+function get_ad_html($name){
+    $fp = $_SERVER['DOCUMENT_ROOT']."/php/html/ads/".$name.".php";
+    if (file_exists($fp)){
+        return file_get_contents($fp);
+    }else{
+        debug_console("No ad found with name: ".$name);
+        return "";
+    }
+}
+
 
 // ============================================================================
 // Database functions
@@ -985,8 +1004,10 @@ function make_item_grid($sort="popular", $search="all", $category="all", $author
             $n++;
             $html .= make_grid_item($i, $category);
             if ($n % 19 == 0 && $ad_count < 4 && function_exists("make_grid_adunit")){
-                $html .= make_grid_adunit();
                 $ad_count++;
+                $html .= "<div class='adsense-unit'>";
+                $html .= get_ad_html("Grid {$ad_count}");
+                $html .= "</div>";
             }
         }
     }
