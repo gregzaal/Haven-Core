@@ -82,10 +82,19 @@ ul#navbar {
 
 .me-wrapper {
     text-align: center;
+
+    img {
+        float: unset !important;
+        margin-right: unset !important;
+    }
 }
 .me {
     float: none;
     margin: 1em;
+}
+
+.author-list h1 {
+    display: block;
 }
 
 #footer {
