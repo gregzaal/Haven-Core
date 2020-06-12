@@ -137,9 +137,12 @@ ul#navbar {
     width: auto;
 
     .title-bar {
-        .grid-option-wrapper {
-            float: none;
+        flex-direction: column;
+
+        #ads-grid-top {
+            margin: 1em 0;
         }
+
         .grid-option {
             padding: 0.35em 0.5em;
             width: calc(100% - 1em - 2px);

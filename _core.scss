@@ -490,6 +490,10 @@ table {
     text-align: center;
 }
 
+#ads-grid-top {
+    margin: 0 1em;
+}
+
 
 // =============================================================================================
 //   db   db d88888b  .d8b.  d8888b. d88888b d8888b.
@@ -1429,17 +1433,23 @@ ul#navbar {
     padding: 1em;
 
     .title-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         padding: 1em;
         padding-bottom: 0;
 
         h1 {
+            flex-grow: 100;
             display: inline;
             padding: 0;
         }
 
         .grid-option-wrapper {
-            float: right;
+            flex-shrink: 100;
+            min-width: 190px;
         }
+
         .grid-option {
             display: inline-block;
             position: relative;
