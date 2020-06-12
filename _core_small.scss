@@ -154,7 +154,7 @@ ul#navbar {
         }
     }
 }
-.grid-item {
+.grid-item, #similar-items .grid-item {
     width: calc(100% - 2px);
     margin: 0;
 }
