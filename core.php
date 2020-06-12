@@ -1003,7 +1003,7 @@ function make_item_grid($sort="popular", $search="all", $category="all", $author
         foreach ($items as $i){
             $n++;
             $html .= make_grid_item($i, $category);
-            if ($n % 19 == 0 && $ad_count < 4 && function_exists("make_grid_adunit")){
+            if ($n % 19 == 0 && $ad_count < 6 && function_exists("make_grid_adunit")){
                 $ad_count++;
                 $html .= "<div class='adsense-unit'>";
                 $html .= get_ad_html("Grid {$ad_count}");
