@@ -126,6 +126,10 @@ ul#navbar {
     z-index: 2;
     left: -200px;
     display: none;
+
+    .adsense-unit {
+        display: none;
+    }
 }
 
 #grid-banner .category-segment {
