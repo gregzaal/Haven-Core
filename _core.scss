@@ -494,6 +494,31 @@ table {
     margin: 0 1em;
 }
 
+#remove-ads {
+    img {
+        height: 14px;
+        vertical-align: top;
+    }
+}
+
+#ad-removal-form {
+    input {
+        font-size: 1.2em;
+        padding: 0.5em;
+        font-family: 'PT Mono', monospace;
+        color: $c-text-light;
+        background-color: $c-background-lightish;
+        text-align: center;
+        display: block;
+        margin: 1em;
+        width: calc(100% - 2em);
+    }
+
+    #response {
+        text-align: center;
+    }
+}
+
 
 // =============================================================================================
 //   db   db d88888b  .d8b.  d8888b. d88888b d8888b.
