@@ -486,6 +486,20 @@ table {
     padding-left: 1em;
 }
 
+.savings-tables {
+    max-height: 500px;
+    margin: 1.5em 1em;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    @include dark_scrollbar;
+
+    table {
+        margin: 0;
+        border: none;
+        width: 100%;
+    }
+}
+
 .adsense-unit {
     text-align: center;
 }
