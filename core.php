@@ -1080,7 +1080,7 @@ function get_patreon(){
     list($name_replacements, $add_names, $remove_names) = get_name_changes($conn);
 
     // Get dummy data if working locally
-    if ($GLOBALS['WORKING_LOCALLY']){
+    if ($GLOBALS['WORKING_LOCALLY'] && !file_exists($patreoncache)){
         $example_names = [
             "Joni Mercado",
             "S J Bennett",
@@ -1138,7 +1138,7 @@ function get_patreon(){
     $cachetime = 120;  // How many minutes before the cache is invalid
     $cachetime *= 60;  // convert to seconds
     if (file_exists($patreoncache)) {
-        if (time() - $cachetime < filemtime($patreoncache)){
+        if (time() - $cachetime < filemtime($patreoncache) || $GLOBALS['WORKING_LOCALLY']){
             // echo "<!-- Patreon cache ".date('H:i', filemtime($patreoncache))." -->\n";
             $str = file_get_contents($patreoncache);
             return json_decode($str, true);
