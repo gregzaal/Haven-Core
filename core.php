@@ -25,12 +25,17 @@ $PATRON_LIST = $patreon[0];
 $PATREON_GOALS = $patreon[2];
 $PATREON_CURRENT_GOAL = null;
 foreach ($PATREON_GOALS as $g){
+    $PATREON_CURRENT_GOAL = $g;
     if ($g['completed_percentage'] < 100 && strpos($g['description'], "[reached") == false){
-        $PATREON_CURRENT_GOAL = $g;
         break;
     }
+
 }
-$PATREON_EARNINGS = floor(($PATREON_CURRENT_GOAL['amount_cents']*($PATREON_CURRENT_GOAL['completed_percentage']/100))/100);
+if ($PATREON_CURRENT_GOAL['completed_percentage'] < 100){
+    $PATREON_EARNINGS = floor(($PATREON_CURRENT_GOAL['amount_cents']*($PATREON_CURRENT_GOAL['completed_percentage']/100))/100);
+}else{
+    $PATREON_EARNINGS = $patreon[1];
+}
 
 // Don't cache these pages | GET params ignored | matched to $_SERVER['PHP_SELF']
 $NO_CACHE = ["/gallery/do_submit.php",
