@@ -513,6 +513,10 @@ function get_ad_html($name){
     }
 }
 
+function paypal_email_to_link($email, $description){
+    return "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business={$email}&item_name={$description}";
+}
+
 
 // ============================================================================
 // Database functions
