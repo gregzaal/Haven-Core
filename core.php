@@ -820,14 +820,9 @@ function get_gallery_renders($all=false, $reuse_conn=NULL){
     return $array;
 }
 
-function get_commercial_sponsors($reuse_conn=NULL){
-    if (is_null($reuse_conn)){
-        $conn = db_conn_read_only();
-    }else{
-        $conn = $reuse_conn;
-    }
+function get_commercial_sponsors($conn){
     $row = 0; // Default incase of SQL error
-    $sql = "SELECT * FROM commercial_sponsors";
+    $sql = "SELECT * FROM commercial_sponsors ORDER BY active DESC, name ASC";
     $result = mysqli_query($conn, $sql);
 
     $array = array();
@@ -838,11 +833,55 @@ function get_commercial_sponsors($reuse_conn=NULL){
             }
         }
     }
+
+    return $array;
+}
+
+function insert_commercial_sponsors($heading="Also supported by:", $reuse_conn=NULL){
+    if (is_null($reuse_conn)){
+        $conn = db_conn_read_only();
+    }else{
+        $conn = $reuse_conn;
+    }
+
+    $comm_sponsors = get_commercial_sponsors($conn);
+    if (!empty($comm_sponsors)){
+        echo "<div class='segment-a'>";
+        echo "<div class='segment-inner'>";
+        echo "<div class='commercial_sponsors'>";
+        echo "<h2>{$heading}</h2>";
+        $prev_rank = 0;
+        foreach ($comm_sponsors as $s){
+            $cur_rank = $s['active'];
+            
+            if ($prev_rank == 2 & $cur_rank == 1){
+                echo "<br>";
+            }
+
+            echo "<a href= \"".$s['link']."\" target='_blank'>";
+            echo "<img src=\"/files/site_images/commercial_sponsors/";
+            echo $s['logo'];
+            echo "\" alt=\"";
+            echo $s['name'];
+            echo "\" title=\"";
+            echo $s['name'];
+            echo "\"";
+            if ($cur_rank == 2){
+                echo " class=\"diamond\"";
+            }
+            echo "/>";
+            echo "</a>";
+
+            $prev_rank = $cur_rank;
+        }
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+    }
+
     if (is_null($reuse_conn)){
         $conn->close();
     }
-
-    return $array;
 }
 
 function get_sponsors($slug, $reuse_conn=NULL){

@@ -822,13 +822,6 @@ ul#navbar {
         }
     }
 
-    .commercial_sponsors img {
-        max-width: 200px;
-        max-height: 66px;
-        margin: 0 1em 1em;
-        vertical-align: middle;
-    }
-
     .social {
         padding-top: 1em;
         border-top: 1px solid rgba(white, 0.25);
@@ -905,15 +898,19 @@ ul#navbar {
 
 .commercial_sponsors {
 
+    h2 {
+        padding: 0.5em !important;
+    }
+
     a {
         text-decoration: none !important;
     }
 
     img {
         display: inline-block;
-        max-width: 300px;
-        max-height: 100px;
-        margin: 1em 2em;
+        max-width: calc(1024px / 4 - 4em);
+        max-height: 66px;
+        margin: 0 1em 1em;
         vertical-align: middle;
         @include transition(0.2s);
 
@@ -921,6 +918,11 @@ ul#navbar {
             filter: contrast(70%) brightness(130%) drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.5));
             @include transition(0.1s);
         }
+    }
+
+    img.diamond {
+        max-width: 340px;
+        max-height: 128px;
     }
 }
 
@@ -1088,6 +1090,19 @@ ul#navbar {
             opacity: 1;
             @include transition(0.4s);
         }
+    }
+}
+
+#landing-page .commercial_sponsors {
+    img {
+        max-width: calc(1200px / 4 - 4em);
+        max-height: 100px;
+        margin: 1em 2em;
+    }
+
+    img.diamond {
+        max-width: 400px;
+        max-height: 150px;
     }
 }
 
