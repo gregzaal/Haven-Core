@@ -413,16 +413,6 @@ function include_start_html($title, $slug="", $canonical="", $t1="") {
     echo $html;
 }
 
-function include_disqus($id) {
-    ob_start();
-    include $_SERVER['DOCUMENT_ROOT']."/php/html/disqus.php";
-    $html = ob_get_contents();
-    ob_end_clean();
-
-    $id = str_replace("'", "\'", $id);
-    echo str_replace('%ID%', $id, $html);
-}
-
 function insert_email($text="##email##"){
     $email = "info@".$GLOBALS['SITE_DOMAIN'];
     echo '<a href="mailto:'.$email.'" target="_blank">';
@@ -853,7 +843,7 @@ function insert_commercial_sponsors($heading="Also supported by:", $reuse_conn=N
         $prev_rank = 0;
         foreach ($comm_sponsors as $s){
             $cur_rank = $s['active'];
-            
+
             if ($prev_rank == 2 & $cur_rank == 1){
                 echo "<br>";
             }
