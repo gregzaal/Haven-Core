@@ -142,20 +142,16 @@ ul#navbar {
 
     .title-bar {
         flex-direction: column;
+    }
 
-        #ads-grid-top {
-            margin: 1em 0;
-        }
-
-        .grid-option {
-            padding: 0.35em 0.5em;
-            width: calc(100% - 1em - 2px);
-            margin-top: 0.7em;
-        }
-        .search-box {
-            max-width: none;
-            padding: 0.35em 0.5em;
-        }
+    .grid-option {
+        padding: 0.35em 0.5em;
+        width: calc(100% - 1em - 2px);
+        margin-top: 0.7em;
+    }
+    .search-box {
+        max-width: none;
+        padding: 0.35em 0.5em;
     }
 }
 .grid-item, #similar-items .grid-item {
