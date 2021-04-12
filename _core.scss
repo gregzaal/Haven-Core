@@ -920,6 +920,7 @@ ul#navbar {
 
     img {
         display: inline-block;
+        width: calc(100% - 2em);
         max-width: calc(1024px / 4 - 4em);
         max-height: 66px;
         margin: 0 1em 1em;
@@ -1107,6 +1108,7 @@ ul#navbar {
 
 #landing-page .commercial_sponsors {
     img {
+        width: calc(100% - 4em);
         max-width: calc(1200px / 4 - 4em);
         max-height: 100px;
         margin: 1em 2em;
