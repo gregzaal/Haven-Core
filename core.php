@@ -1293,7 +1293,7 @@ function get_patreon()
     $all_pledge_response = [];
     while (true) {
         $pledges_response = $api_client->fetch_page_of_pledges($campaign_id, 25, $cursor);
-        $all_pledge_response = array_merge($all_pledge_response, $pledges_response);
+        array_push($all_pledge_response, $pledges_response);
         // get all the users in an easy-to-lookup way
         $user_data = [];
         foreach ($pledges_response['included'] as $included_data) {
