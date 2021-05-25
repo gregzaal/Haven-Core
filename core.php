@@ -1225,8 +1225,10 @@ function get_patreon(){
     $cursor = null;
     $patron_list = [];
     $total_earnings_c = 0;
+    $all_pledge_response = [];
     while (true) {
         $pledges_response = $api_client->fetch_page_of_pledges($campaign_id, 25, $cursor);
+        $all_pledge_response = array_merge($all_pledge_response, $pledges_response);
         // get all the users in an easy-to-lookup way
         $user_data = [];
         foreach ($pledges_response['included'] as $included_data) {
@@ -1265,6 +1267,12 @@ function get_patreon(){
         parse_str($next_query_params, $parsed_next_query_params);
         $cursor = $parsed_next_query_params['page']['cursor'];
     }
+
+    $pledges_json_path = $_SERVER['DOCUMENT_ROOT'].'/php/patreon_data/_pledges.json';
+    $fp = fopen($pledges_json_path, 'w');
+    fwrite($fp, json_encode($all_pledge_response));
+    fclose($fp);
+
     foreach (array_keys($add_names) as $p){
         array_splice($patron_list, rand(0, sizeof($patron_list)-1), 0, [[$p, $add_names[$p]]]);
     }
@@ -1294,5 +1302,3 @@ function goal_title($g){
     $t = str_replace("<br>", "", $t);
     return $t;
 }
-
-?>
